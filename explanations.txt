@@ -1,0 +1,44 @@
+# /home/tonny/Development/Python/Courses/recipe-app-api
+
+# create Dockerfile file
+
+docker build .
+
+
+# create docker-compose.yml file
+
+docker-compose build
+
+
+docker-compose run app -rm sh -c "django-admin startproject app ."
+
+
+## test and linting
+
+create setup.cfg file for flake8
+
+docker-compose run --rm app sh -c "python manage.py test && flake8"
+
+## git
+
+git add .
+git commit -am "..."
+git push -u origin
+
+## create core app
+docker-compose run --rm app sh -c "python manage.py startapp core"
+
+
+## migrations
+
+docker-compose run app sh -c "python manage.py makemigrations ..."
+docker-compose run app sh -c "python manage.py migrate"
+
+
+## create superuser
+
+docker-compose run app sh -c "python manage.py createsuperuser"
+
+
+## create user app
+docker-compose run --rm app sh -c "python manage.py startapp user"
